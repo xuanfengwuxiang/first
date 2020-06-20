@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <com.xuanfeng.testcomponent.widget.TestTouchLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <com.xuanfeng.testcomponent.widget.TestTouchView
+            android:id="@+id/button"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="#ffff00" />
+
+    </com.xuanfeng.testcomponent.widget.TestTouchLinearLayout>
+</layout>
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.xuanfeng.weather.WelcomeActivity" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/activity_welcome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_transparent"
+        tools:context="com.xuanfeng.weather.WelcomeActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_welcome" />
+
+        </LinearLayout>
+
+        <com.xuanfeng.countdownprogressview.CountDownProgressBar
+            android:onClick="@{listener::onClick}"
+            android:id="@+id/countDownProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="20dp"
+            app:count_down_time="5"
+            app:default_ring_width="5dp"
+            app:progress_width="5dp" />
+    </RelativeLayout>
+</layout>

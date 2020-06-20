@@ -1,0 +1,66 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url "https://jitpack.io"
+        }
+        maven { url "https://maven.google.com" }
+        google()
+    }
+    dependencies {
+
+        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+plugins {
+    id "org.sonarqube" version "2.6"
+}
+
+apply from: "config.gradle"
+
+sonarqube {
+    properties {
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.projectKey", "XUANFENG_ANDROID" //projectkey
+        property "sonar.projectName", project.name  //projectname
+        property "sonar.sources", "src/main/java" //源码，写这个就行
+        property "sonar.projectVersion", "1.0.0"  //版本，随意
+        property "sonar.binaries", "build/intermediates/classes"
+    }
+}
+
+
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "https://jitpack.io"
+        }
+        maven { url "https://maven.google.com" }
+        google()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+// 保证dex_files文件中指定的文件都加载到Main Dex中
+afterEvaluate {
+    tasks.matching {
+        it.name.startsWith('dex')
+    }.each { dx ->
+        if (dx.additionalParameters == null) {
+            dx.additionalParameters = []
+        }
+        dx.additionalParameters += '--multi-dex'
+        dx.additionalParameters += "--main-dex-list=$projectDir/dex_files".toString()
+    }
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.xuanfeng.xflibrary.mvp.BaseActivity" />
+
+        <variable
+            name="selectCityActivity"
+            type="com.xuanfeng.weather.module.weather.activity.SelectCityActivity" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/baseThemeColor"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include_tittle"
+            layout="@layout/include_title_bar_one"
+            bind:listener="@{selectCityActivity}" />
+
+        <!--搜索-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <com.xuanfeng.customtextviewlib.CustomTextView
+                android:id="@+id/tv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:text="搜索"
+                android:textColor="@color/colorAccent"
+                app:solid_press_color="@color/baseThemeColor"
+                app:stroke_color="@color/colorAccent"
+                app:stroke_press_color="@color/white"
+                app:stroke_radius="5dp"
+                app:stroke_width="1dp"
+                app:text_press_color="@color/white" />
+        </LinearLayout>
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/mapView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:clickable="true" />
+
+    </LinearLayout>
+</layout>

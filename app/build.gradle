@@ -1,0 +1,220 @@
+apply plugin: 'com.android.application'
+
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+buildscript {
+
+    repositories {
+        jcenter()
+        maven {
+            url "https://jitpack.io"
+        }
+        maven { url "https://maven.google.com" }
+        google()
+        maven { url '../asm_lifecycle_repo' }
+    }
+
+}
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    //多渠道打包
+    productFlavors {
+        huawei {
+            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'developer.huawei.com')
+        }
+//        other {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'other')
+//        }
+//        baidu {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'app.baidu.com')
+//        }
+//        oppo {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.oppomobile.com')
+//        }
+//        vivo {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.vivo.com.cn')
+//        }
+//        xiaomi {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.xiaomi.com')
+//        }
+//        qiku360 {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.360.cn')
+//        }
+//        pp {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.pp.cn')
+//        }
+//        flyme {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.flyme.cn')
+//        }
+//        qq {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.qq.com')
+//        }
+//        jinli {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.appgionee.com')
+//        }
+//        letv {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.letv.com')
+//        }
+//        anzhi {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.anzhi.com')
+//        }
+//        lenovo {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'open.lenovo.com')
+//        }
+//        google {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.google.com')
+//        }
+//        meizu {
+//            manifestPlaceholders.put("APP_CHANNEL_VALUE", 'dev.meizu.com')
+//        }
+    }
+    defaultConfig {
+        applicationId "com.xuanfeng.weather"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        flavorDimensions "versionCode"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // 设置MultiDex可用
+        multiDexEnabled true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+    }
+    buildTypes {
+        release {
+            // 关闭混淆
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //将release版本的包名重命名是否去除无效的资源文件，加上版本及日期
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    if (output.outputFile.name.endsWith("release.apk")) {
+                        //获取签名的名字 variant.signingConfig.name
+                        //要被替换的源字符串
+                        def sourceFile = "-${variant.flavorName}-${variant.buildType.name}"
+                        //替换的字符串
+                        def replaceFile = "${variant.productFlavors[0].name}_${variant.applicationId}_${variant.versionName}_${variant.versionCode}_${releaseTime()}.apk"
+                        outputFileName = output.outputFile.name.replace(sourceFile, replaceFile)
+                        //遗留问题：如何获取当前module的name，如CodeBooke这个名字怎么获取到
+
+                    }
+                }
+            }
+        }
+    }
+
+    // 保证其他的lib没有被preDex
+    dexOptions {
+        javaMaxHeapSize "4g"
+        preDexLibraries = false
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/java-gen', 'src/main/aidl']
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    signingConfigs {
+        config {
+            keyAlias 'xfw'
+            keyPassword 'zjh5437901'
+            storeFile file('../xfw.jks')
+            storePassword 'zjh5437901'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    compileOnly fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation files('libs/BaiduLBS_Android.jar')
+
+    implementation('com.airbnb.android:lottie:2.2.5', {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    })
+    // compile 'io.netty:netty-all:5.0.0.Alpha2'
+    implementation files('libs/netty-all-4.1.4.Final.jar')
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["support-v4"]
+    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation 'de.greenrobot:greendao-generator:2.1.0'
+    implementation 'de.greenrobot:greendao:2.1.0'
+
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+
+    implementation 'com.github.xuanfengwuxiang:CustomTextView:2.2'
+
+    implementation 'com.google.android.material:material:1.0.0'
+
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    //网络框架
+    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.2.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation('com.squareup.retrofit2:converter-simplexml:2.1.0') {
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'stax', module: 'stax'
+    }
+
+    //Rxjava
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+
+    //MagicIndicator
+    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'//https加载必用
+    implementation 'jp.wasabeef:glide-transformations:2.0.0'//加载圆角图片
+
+    //下拉刷新
+    implementation 'in.srain.cube:ultra-ptr:1.0.11'
+
+    //Rxjava自动解绑
+    implementation 'com.uber.autodispose:autodispose:0.8.0'
+    implementation 'com.uber.autodispose:autodispose-android-archcomponents:0.8.0'
+
+    implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.0.0'
+
+    implementation 'com.github.xuanfengwuxiang:CountDownProgressBar:1.3'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
+    if (!isTestRunAlone.toBoolean()) {
+        implementation project(path: ':testcomponent')
+    }
+    annotationProcessor 'androidx.annotation:annotation:1.0.0'
+    implementation project(path: ':leanclould')
+    implementation 'com.github.xuanfengwuxiang:XuanFengWeather:1.2.8'
+
+
+}

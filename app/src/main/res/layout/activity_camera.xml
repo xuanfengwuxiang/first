@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="listener"
+            type="com.xuanfeng.weather.module.media.activity.CameraActivity"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <SurfaceView
+            android:onClick="@{listener::onClick}"
+            android:id="@+id/surfaceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"/>
+
+        <TextView
+            android:onClick="@{listener::onClick}"
+            android:id="@+id/tv_take_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/holo_green_light"
+            android:padding="15dp"
+            android:text="拍照"/>
+
+        <TextView
+            android:onClick="@{listener::onClick}"
+            android:id="@+id/tv_turn_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/holo_green_light"
+            android:padding="15dp"
+            android:text="前置/后置"/>
+
+        <com.xuanfeng.weather.widget.FaceView
+            android:id="@+id/face_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
+        <!--拍照完的显示界面-->
+        <RelativeLayout
+            android:id="@+id/rl_photo_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#222"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_photo_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"/>
+
+            <TextView
+                android:onClick="@{listener::onClick}"
+                android:id="@+id/tv_finish_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@android:color/holo_green_light"
+                android:padding="15dp"
+                android:text="完成"/>
+
+            <TextView
+                android:onClick="@{listener::onClick}"
+                android:id="@+id/tv_cancel_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="@android:color/holo_green_light"
+                android:padding="15dp"
+                android:text="取消"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>
+

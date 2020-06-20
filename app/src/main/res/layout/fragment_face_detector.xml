@@ -1,0 +1,56 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.xuanfeng.weather.module.media.fragment.FaceDetectorFragment" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_goto_camera"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#ffff00"
+                android:gravity="center"
+                android:onClick="@{listener::onClick}"
+                android:text="进入相机界面" />
+
+            <TextView
+                android:id="@+id/tv_detect"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#00ff00"
+                android:gravity="center"
+                android:onClick="@{listener::onClick}"
+                android:text="检测" />
+
+
+            <TextView
+                android:id="@+id/tv_horiental_limit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#6666ff"
+                android:gravity="center"
+                android:onClick="@{listener::onClick}"
+                android:text="相机横屏，限定区域" />
+
+            <ImageView
+                android:id="@+id/iv_face"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

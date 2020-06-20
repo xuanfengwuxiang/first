@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#f5f5f5" />
+
+        <FrameLayout
+            android:id="@+id/group_download_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#66333333"
+            android:clickable="true"
+            android:focusable="true"
+            tools:visibility="visible"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/shape_webview_download_white_bg"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_download"
+                    android:text="下载中,请不要关闭"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.daimajia.numberprogressbar.NumberProgressBar
+                    android:id="@+id/numer_process"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    app:progress_current="0"
+                    app:progress_max="100"
+                    app:progress_reached_bar_height="10dp"
+                    app:progress_reached_color="#3498DB"
+                    app:progress_text_color="#3498DB"
+                    app:progress_text_offset="1dp"
+                    app:progress_text_size="16sp"
+                    app:progress_text_visibility="visible"
+                    app:progress_unreached_bar_height="0.75dp"
+                    app:progress_unreached_color="#3E2E2E" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </FrameLayout>
+
+</LinearLayout>
