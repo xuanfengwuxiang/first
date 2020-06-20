@@ -34,7 +34,8 @@
                 android:gravity="center"
                 android:onClick="@{listener::onClick}"
                 android:text="通讯录"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_lose_weight"
@@ -43,7 +44,8 @@
                 android:gravity="center"
                 android:onClick="@{listener::onClick}"
                 android:text="减肥计算器"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_test"
