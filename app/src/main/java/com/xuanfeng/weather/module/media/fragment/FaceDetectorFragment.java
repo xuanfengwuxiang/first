@@ -21,6 +21,7 @@ import com.xuanfeng.weather.utils.ImageUtil;
 import com.xuanfeng.xflibrary.mvp.BaseFragment;
 import com.xuanfeng.xflibrary.mvp.BasePresenter;
 import com.xuanfeng.xflibrary.utils.StringUtils;
+import com.xuanfeng.xflibrary.utils.ToastUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -58,6 +59,7 @@ public class FaceDetectorFragment extends BaseFragment<BasePresenter, ViewModel,
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_detect://图片识别
+                ToastUtil.showToast(getActivity(),"正在后台识别，稍等");
                 faceDetect();
                 break;
             case R.id.tv_goto_camera://相机识别
