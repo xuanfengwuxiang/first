@@ -74,7 +74,7 @@ android {
 //        }
     }
     defaultConfig {
-        applicationId "com.xuanfeng.weather"
+        applicationId "com.liuhe.liuhemidian"
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
