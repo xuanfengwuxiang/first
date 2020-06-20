@@ -23,7 +23,7 @@
                 android:background="#ffff00"
                 android:gravity="center"
                 android:onClick="@{listener::onClick}"
-                android:text="进入相机界面" />
+                android:text="相机人脸识别" />
 
             <TextView
                 android:id="@+id/tv_detect"
@@ -32,7 +32,7 @@
                 android:background="#00ff00"
                 android:gravity="center"
                 android:onClick="@{listener::onClick}"
-                android:text="检测" />
+                android:text="图片人脸检测" />
 
 
             <TextView
@@ -42,7 +42,7 @@
                 android:background="#6666ff"
                 android:gravity="center"
                 android:onClick="@{listener::onClick}"
-                android:text="相机横屏，限定区域" />
+                android:text="相机限定区域人脸识别" />
 
             <ImageView
                 android:id="@+id/iv_face"
