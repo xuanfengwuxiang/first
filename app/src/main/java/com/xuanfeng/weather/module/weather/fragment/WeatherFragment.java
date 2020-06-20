@@ -87,6 +87,7 @@ public class WeatherFragment extends BaseFragment<WeatherPresenter, ViewModel, F
         if (StringUtils.isEmpty(mCity) && mLocationClient != null && mLocationClient.isStarted()) {
             mLocationClient.requestLocation();
         }
+        mPresenter.getWeather(getActivity(), "南京");
     }
 
     public void onClick(View view) {
