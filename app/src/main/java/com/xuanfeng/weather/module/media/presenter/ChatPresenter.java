@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import com.xuanfeng.weather.constant.HttpConstant;
 import com.xuanfeng.weather.module.media.view.ChatView;
 import com.xuanfeng.weather.module.media.widget.ChatRecyclerView.ResponseBean;
@@ -30,13 +31,17 @@ public class ChatPresenter implements BasePresenter<ChatView, ViewModel> {
                 if (jsonObject == null) {
                     return;
                 }
-                ResponseBean responseBean = new Gson().fromJson(jsonObject.toString(), ResponseBean.class);
-                if (responseBean != null) {
-                    ResponseBean.ResultBean resultBean = responseBean.getResult();
-                    if (resultBean != null) {
-                        String response = resultBean.getContent();
-                        mView.onGetReply(response);
+                try {
+                    ResponseBean responseBean = new Gson().fromJson(jsonObject.toString(), ResponseBean.class);
+                    if (responseBean != null) {
+                        ResponseBean.ResultBean resultBean = responseBean.getResult();
+                        if (resultBean != null) {
+                            String response = resultBean.getContent();
+                            mView.onGetReply(response);
+                        }
                     }
+                } catch (JsonSyntaxException e) {
+                    e.printStackTrace();
                 }
             }
 

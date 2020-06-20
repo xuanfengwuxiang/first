@@ -186,12 +186,12 @@ public class ChatRecyclerView extends FrameLayout {
          * result : {"type":"聊天","content":"情侣们在这一天互相馈赠礼物，用以表达爱意或友好。根据中西方文化，节日的时间和特色不同，每年的2月14日是西方的情人节","relquestion":""}
          */
 
-        private String status;
+        private Object status;
         private String msg;
         private ResultBean result;
 
 
-        public String getStatus() {
+        public Object getStatus() {
             return status;
         }
 
