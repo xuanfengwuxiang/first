@@ -6,23 +6,21 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 /**
- * Created by xuanfengwuxiang on 2018/1/6.
+ * 2018/1/6.
  * SurfaceView实现跟手画画
  */
 
-public class SurfaceViewL extends SurfaceView implements SurfaceHolder.Callback, Runnable {
+public class SurfaceViewL extends SurfaceView implements SurfaceHolder.Callback {
     // SurfaceHolder
     private SurfaceHolder mSurfaceHolder;
     // 画布
     private Canvas mCanvas;
-    // 子线程标志位
-    private boolean isDrawing;
+
     // 画笔
     Paint mPaint;
     // 路径
@@ -58,10 +56,7 @@ public class SurfaceViewL extends SurfaceView implements SurfaceHolder.Callback,
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {//创建
-        isDrawing = true;
-        Log.e("surfaceCreated","--"+isDrawing);
-        //绘制线程
-        new Thread(this).start();
+        drawing();
     }
 
 
@@ -72,15 +67,8 @@ public class SurfaceViewL extends SurfaceView implements SurfaceHolder.Callback,
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {//销毁
-        isDrawing = false;
-        Log.e("surfaceDestroyed","--"+isDrawing);
-    }
 
-    @Override
-    public void run() {
-        while (isDrawing){
-            drawing();
-        }
+
     }
 
     /**
@@ -90,7 +78,7 @@ public class SurfaceViewL extends SurfaceView implements SurfaceHolder.Callback,
         try {
             mCanvas = mSurfaceHolder.lockCanvas();
             mCanvas.drawColor(Color.WHITE);
-            mCanvas.drawPath(mPath,mPaint);
+            mCanvas.drawPath(mPath, mPaint);
         } finally {
             if (mCanvas != null) {
                 mSurfaceHolder.unlockCanvasAndPost(mCanvas);
@@ -115,6 +103,7 @@ public class SurfaceViewL extends SurfaceView implements SurfaceHolder.Callback,
                 if (dx >= 3 || dy >= 3) {
                     mPath.quadTo(mLastX, mLastY, (mLastX + x) / 2, (mLastY + y) / 2);
                 }
+                drawing();
                 mLastX = x;
                 mLastY = y;
                 break;

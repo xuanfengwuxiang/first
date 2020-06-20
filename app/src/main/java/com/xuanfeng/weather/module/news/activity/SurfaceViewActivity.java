@@ -1,7 +1,5 @@
 package com.xuanfeng.weather.module.news.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 import com.xuanfeng.weather.R;
@@ -34,9 +32,5 @@ public class SurfaceViewActivity extends BaseActivity {
         return 0;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-//        mSurfaceViewL.onDestroy();
-    }
+
 }
